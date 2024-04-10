@@ -5,7 +5,7 @@ import { pool } from "./db.js";
     const values = [rut, nombre, curso, nivel];
     try {
       const result = await pool.query(text, values);
-      console.log("Estudiante insertado:", result);
+      console.log(`Estudiante ${nombre} insertado correctamente:`);
       return result;
     } catch (error) {
       console.error("Error al insertar estudiante:", error);
@@ -40,7 +40,14 @@ const editarEstudiante = async (rut, nombre, curso, nivel) => {
     const values = [rut, nombre, curso, nivel];
     try {
       const result = await pool.query(text, values);
+      if(result.rowCount !== 0){
       console.log(`Estudiante con rut ${rut} editado correctamente`);
+      }
+      else 
+      {
+        console.log(`Estudiante con rut ${rut} no existe`);
+
+      }
       return result;
     } catch (error) {
       console.error("Error al editar el estudiante:", error);
@@ -52,7 +59,7 @@ const editarEstudiante = async (rut, nombre, curso, nivel) => {
     const values = [rut];
     try {
       const result = await pool.query(text, values);
-      console.log("Rut eliminado correctamente");
+      console.log(`Registro de estudiante con rut ${rut} eliminado correctamente`);
       return result;
     } catch (error) {
       console.error("Error al eliminar Rut:", error);
